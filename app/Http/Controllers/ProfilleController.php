@@ -7,6 +7,7 @@ use App\Models\Profile;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProfilleController extends Controller
 {
@@ -53,6 +54,7 @@ class ProfilleController extends Controller
      */
     public function update(ProfileRequest $request, Profile $profile)
     {
+        Storage::disk('app/public', $request->file('file'));
         try {
             $profile->update($request->all());
             return redirect()->back()->with('info', [ 'color' => 'success', 'texto' =>'Todo bien']);
